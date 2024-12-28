@@ -25,7 +25,7 @@ export function ChatBot() {
   // Set hasBeenSeen to true after 3 seconds
   useEffect(() => {
     const timer = setTimeout(() => {
-      setHasBeenSeen(true);
+      setHasBeenSeen(false);
     }, 3000);
     return () => clearTimeout(timer);
   }, []);
@@ -121,13 +121,15 @@ export function ChatBot() {
       >
         <div className="relative">
           {/* Notification Dot */}
-          {!hasBeenSeen && (
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"
-            />
-          )}
+         {/* Notification Dot */}
+{!hasBeenSeen && (
+  <motion.div
+    initial={{ scale: 0 }}
+    animate={{ scale: 1 }}
+    className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"
+  />
+)}
+
           
           {/* Chat Button */}
           <motion.div
