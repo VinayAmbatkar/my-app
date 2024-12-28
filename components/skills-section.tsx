@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { Code2, Database, Wrench, Brain, MessageSquare, Binary, Boxes, GitBranch, Terminal, Server, Languages, FileCode, Table2, Workflow, Users, Lightbulb, Timer, Puzzle, HandshakeIcon, Rocket, Star } from 'lucide-react'
+import { Code2, Database, Wrench, Binary, GitBranch, Terminal, Server, Languages, FileCode, Boxes, Workflow, Star } from 'lucide-react'
 import { Progress } from "@/components/ui/progress"
 
 const skillCategories = [
@@ -76,7 +76,7 @@ const SkillCard = ({ skill }: { skill: typeof skillCategories[0]['skills'][0] })
   )
 }
 
-const CategorySection = ({ category, index }: { category: typeof skillCategories[0], index: number }) => {
+const CategorySection = ({ category }: { category: typeof skillCategories[0] }) => {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -169,12 +169,11 @@ export function SkillsSection() {
         </div>
 
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
-          {skillCategories.map((category, index) => (
-            <CategorySection key={category.title} category={category} index={index} />
+          {skillCategories.map((category) => (
+            <CategorySection key={category.title} category={category} />
           ))}
         </div>
       </div>
     </section>
   )
 }
-

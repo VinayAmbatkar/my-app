@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { FaReact, FaNodeJs } from 'react-icons/fa'
 import { SiMongodb, SiExpress, SiTensorflow } from 'react-icons/si'
-import { Binary, Code2 } from 'lucide-react'
+import { Code2 } from 'lucide-react'
 
 const skills = [
   { icon: FaReact, label: 'React', color: '#61DAFB' },

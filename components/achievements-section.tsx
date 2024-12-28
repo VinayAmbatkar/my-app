@@ -2,7 +2,7 @@
 
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { Trophy, Medal, Award, Star } from 'lucide-react'
+import { Trophy, Medal, Star } from 'lucide-react'
 import Image from 'next/image'
 import { Card, CardContent } from "@/components/ui/card"
 
@@ -15,16 +15,15 @@ const achievements = [
     color: '#FFD700'
   },
   {
-    title: ' Weelspin codechef Programing Challege ',
-    description: 'Recived  Ruunnerup the College level programing challege of DSA',
+    title: 'Wheelspin CodeChef Programming Challenge',
+    description: 'Received Runner-up at the college-level programming challenge focused on Data Structures and Algorithms.',
     icon: Medal,
     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3DDDhEAOdY3I7WiYvcLbCMKBk-PNzN1w838hYiCMVbnM01hdQbCl-ijdLrW2UeyN6iN0&usqp=CAU',
     color: '#C0C0C0'
   },
- 
 ]
 
-function AchievementCard({ achievement, index }: { achievement: typeof achievements[0], index: number }) {
+function AchievementCard({ achievement }: { achievement: typeof achievements[0] }) {
   const cardRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: cardRef,
@@ -125,11 +124,10 @@ export function AchievementsSection() {
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {achievements.map((achievement, index) => (
-            <AchievementCard key={index} achievement={achievement} index={index} />
+            <AchievementCard key={index} achievement={achievement} />
           ))}
         </div>
       </div>
     </section>
   )
 }
-

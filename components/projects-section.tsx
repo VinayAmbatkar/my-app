@@ -1,39 +1,38 @@
 'use client'
 
 import { useRef } from 'react'
-import { ArrowUpRight, Github, ExternalLink, Boxes } from 'lucide-react'
+import { Github, ExternalLink, Boxes } from 'lucide-react'
 import Image from 'next/image'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 
 const projects = [
-{
+  {
     title: 'Full-stack E-commerce Platform',
     description: 'A scalable, feature-rich e-commerce platform built with modern technologies. Includes an admin panel for product and user management, dynamic cart, secure payment integration, product filters, zoom functionality, authentication, and reviews. Features optimized MongoDB queries for enhanced performance.',
     image: 'https://i.postimg.cc/rsGFd5LK/Dark-Laptop-Review-Youtube-Thumbnail.png',
     tags: [
-        'React.js',
-        'JavaScript',
-        'Material UI',
-        'Node.js',
-        'Express.js',
-        'MongoDB',
-        'Redux',
-        'Authentication',
-        'Payment Gateway',
-        'API Integration',
-        'Responsive Design',
-        'Performance Optimization',
-        'Product Filters',
-        'Cloudinary'
+      'React.js',
+      'JavaScript',
+      'Material UI',
+      'Node.js',
+      'Express.js',
+      'MongoDB',
+      'Redux',
+      'Authentication',
+      'Payment Gateway',
+      'API Integration',
+      'Responsive Design',
+      'Performance Optimization',
+      'Product Filters',
+      'Cloudinary'
     ],
     link: '#',
     github: 'https://github.com/yourusername/project-alpha',
     color: '#3B82F6'
-},
-
-{
+  },
+  {
     title: 'React Resume Builder',
     description: 'Created a Resume Builder web application with React and JavaScript, allowing users to easily create, edit, and export resumes. The tool features secure local storage and responsive design, and has been effectively used by over 50+ students.',
     image: 'https://i.postimg.cc/667HbwNL/Dark-Laptop-Review-Youtube-Thumbnail-1.png',
@@ -41,9 +40,8 @@ const projects = [
     link: 'https://react-resume-builder-s4fu0or74-vinay-ambatkars-projects.vercel.app/',
     github: 'https://github.com/VinayAmbatkar/React-Resume-Builder',
     color: '#2563EB'
-},
-
- {
+  },
+  {
     title: 'Heat Wave Prediction Model',
     description: 'Developed an AI-powered model using Support Vector Machine (SVM) and TensorFlow to predict heat waves. Integrated Google Colab for experimentation and utilized HTML, CSS, and JavaScript for visualization and user interaction.',
     image: 'https://i.postimg.cc/W1bjktQw/Screenshot-2024-12-27-191735.png',
@@ -51,30 +49,28 @@ const projects = [
     link: '#',
     github: 'https://github.com/yourusername/heat-wave-prediction-model',
     color: '#F59E0B'
-},
-
- {
+  },
+  {
     title: 'Museum Booking System',
     description: 'A comprehensive booking system for museums featuring ticket booking and unbooking, ticket generation and printing, and slot booking. Includes a responsive and optimized UI with a robust backend. Integrated a suggestion system and secure payment handling with Razorpay.',
     image: 'https://i.postimg.cc/NGnQZRP9/Screenshot-2024-12-27-192621.png',
     tags: [
-        'React',
-        'MongoDB',
-        'Express.js',
-        'Razorpay',
-        'Slot Booking',
-        'Ticket Booking',
-        'Suggestion System',
-        'Algorithm',
-        'Responsive Design',
-        'Backend Optimization',
-        'UI/UX Design'
+      'React',
+      'MongoDB',
+      'Express.js',
+      'Razorpay',
+      'Slot Booking',
+      'Ticket Booking',
+      'Suggestion System',
+      'Algorithm',
+      'Responsive Design',
+      'Backend Optimization',
+      'UI/UX Design'
     ],
     link: '#',
     github: 'https://github.com/yourusername/museum-booking-system',
     color: '#4ADE80'
-}
-,
+  }
 ]
 
 function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
@@ -87,7 +83,6 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
       className="group relative"
     >
       <div className="relative grid md:grid-cols-5 gap-8 p-6 md:p-8 rounded-2xl border border-primary/10 bg-black/20 backdrop-blur-sm hover:border-primary/20 transition-colors">
-        {/* Content - Takes 2 columns on md+ screens */}
         <div className="md:col-span-2 space-y-6">
           <div className="space-y-2">
             <div className="flex items-center gap-2">
@@ -100,7 +95,6 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
               {project.description}
             </p>
           </div>
-
           <div className="flex flex-wrap gap-2">
             {project.tags.map((tag, tagIndex) => (
               <Badge
@@ -113,7 +107,6 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
               </Badge>
             ))}
           </div>
-
           <div className="flex items-center gap-4 pt-4">
             <Button
               asChild
@@ -147,8 +140,6 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
             </Button>
           </div>
         </div>
-
-        {/* Image - Takes 3 columns on md+ screens */}
         <div className="md:col-span-3 relative">
           <div className="relative aspect-[16/9] rounded-xl overflow-hidden group-hover:shadow-2xl transition-all duration-500">
             <div 
@@ -166,8 +157,6 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
               className="absolute inset-0 bg-gradient-to-tr from-black/80 via-black/50 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500"
             />
           </div>
-          
-          {/* Decorative Elements */}
           <div 
             className="absolute -inset-px rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
             style={{ 
@@ -193,7 +182,6 @@ export function ProjectsSection() {
       id="projects" 
       className="relative py-20 overflow-hidden"
     >
-      {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black" />
       <motion.div 
         className="absolute inset-0 opacity-30"
@@ -202,7 +190,6 @@ export function ProjectsSection() {
           scale: scrollYProgress
         }}
       />
-
       <div className="relative container mx-auto px-4">
         <div className="max-w-2xl mx-auto text-center mb-12 md:mb-20">
           <motion.h2 
@@ -223,7 +210,6 @@ export function ProjectsSection() {
             Explore some of my recent work and technical achievements
           </motion.p>
         </div>
-
         <div className="space-y-8 md:space-y-12">
           {projects.map((project, index) => (
             <ProjectCard key={index} project={project} index={index} />
@@ -233,4 +219,3 @@ export function ProjectsSection() {
     </section>
   )
 }
-

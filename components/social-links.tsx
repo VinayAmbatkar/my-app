@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Github, Linkedin, Mail, Instagram, Code2, BookKeyIcon as BookCode, Code } from 'lucide-react'
+import { Github, Linkedin, Mail, Instagram, Code2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 const socialLinks = [
@@ -40,7 +40,6 @@ const socialLinks = [
     color: '#FFA116',
     delay: 0.4
   },
-
 ]
 
 export function SocialLinks() {
@@ -51,7 +50,7 @@ export function SocialLinks() {
       transition={{ duration: 0.5 }}
       className="flex flex-wrap items-center gap-2 sm:gap-3"
     >
-      {socialLinks.map((social, index) => (
+      {socialLinks.map((social) => (
         <motion.div
           key={social.name}
           initial={{ opacity: 0, scale: 0 }}
@@ -105,4 +104,3 @@ export function SocialLinks() {
     </motion.div>
   )
 }
-

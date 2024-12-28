@@ -1,8 +1,8 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { Building2, Calendar, MapPin, ArrowRight, ExternalLink, Briefcase } from 'lucide-react'
+import { Building2, Calendar, MapPin, ArrowRight, Briefcase } from 'lucide-react'
 import Image from 'next/image'
 
 const experiences = [
@@ -17,9 +17,9 @@ const experiences = [
       'Built responsive UIs with React.js & Modern CSS',
       'Optimized front-end performance & scalability',
       'Led API integration & user-centered design',
-      'Developed distributed storage solutions'
+      'Developed distributed storage solutions',
     ],
-    skills: ['React.js', 'TypeScript', 'HTML5/CSS3', 'API Integration']
+    skills: ['React.js', 'TypeScript', 'HTML5/CSS3', 'API Integration'],
   },
   {
     title: 'Admin Member',
@@ -32,18 +32,18 @@ const experiences = [
       'Organized technical workshops & events',
       'Managed student coordination',
       'Promoted tech activities college-wide',
-      'Runner-up in BDCE Hackathon 2K22'
+      'Runner-up in BDCE Hackathon 2K22',
     ],
-    skills: ['Event Management', 'Leadership', 'Technical Workshop', 'Team Coordination']
-  }
+    skills: ['Event Management', 'Leadership', 'Technical Workshop', 'Team Coordination'],
+  },
 ]
 
-function ExperienceCard({ experience, index }: { experience: typeof experiences[0], index: number }) {
+function ExperienceCard({ experience }: { experience: typeof experiences[0] }) {
   const [isHovered, setIsHovered] = useState(false)
   const cardRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: cardRef,
-    offset: ["start end", "end start"]
+    offset: ['start end', 'end start'],
   })
 
   const y = useTransform(scrollYProgress, [0, 1], [100, -100])
@@ -57,15 +57,15 @@ function ExperienceCard({ experience, index }: { experience: typeof experiences[
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
     >
-      <div 
+      <div
         className="absolute inset-0 rounded-2xl bg-gradient-to-r transition-all duration-300"
-        style={{ 
+        style={{
           background: `linear-gradient(45deg, ${experience.color}10, transparent)`,
           opacity: isHovered ? 1 : 0,
-          transform: `scale(${isHovered ? 1.02 : 1})`
+          transform: `scale(${isHovered ? 1.02 : 1})`,
         }}
       />
-      
+
       <div className="relative grid md:grid-cols-[1fr_250px] gap-8 p-8 rounded-2xl border border-primary/10 bg-black/20 backdrop-blur-sm hover:border-primary/20 transition-colors">
         {/* Content */}
         <div className="space-y-6">
@@ -74,7 +74,7 @@ function ExperienceCard({ experience, index }: { experience: typeof experiences[
               <Briefcase className="w-5 h-5 text-primary" />
               <h3 className="text-xl font-semibold">{experience.title}</h3>
             </div>
-            
+
             <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
                 <Building2 className="w-4 h-4" />
@@ -94,7 +94,7 @@ function ExperienceCard({ experience, index }: { experience: typeof experiences[
           <div className="space-y-4">
             <ul className="space-y-2">
               {experience.achievements.map((achievement, i) => (
-                <motion.li 
+                <motion.li
                   key={i}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -122,12 +122,12 @@ function ExperienceCard({ experience, index }: { experience: typeof experiences[
 
         {/* Logo */}
         <div className="relative">
-          <div 
+          <div
             className="absolute inset-0 rounded-xl opacity-20 blur-2xl transition-opacity duration-300"
-            style={{ 
+            style={{
               background: experience.color,
-              opacity: isHovered ? 0.3 : 0.1
-            }} 
+              opacity: isHovered ? 0.3 : 0.1,
+            }}
           />
           <div className="relative h-full flex items-center justify-center rounded-xl border border-primary/10 bg-black/40 backdrop-blur-sm overflow-hidden group-hover:border-primary/20 transition-colors">
             <Image
@@ -142,7 +142,7 @@ function ExperienceCard({ experience, index }: { experience: typeof experiences[
         </div>
 
         {/* Decorative Elements */}
-        <div 
+        <div
           className="absolute -inset-px rounded-2xl bg-gradient-to-r from-primary/0 via-primary/5 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           style={{ background: `linear-gradient(45deg, transparent, ${experience.color}20, transparent)` }}
         />
@@ -155,28 +155,28 @@ export function ExperienceSection() {
   const containerRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"]
+    offset: ['start end', 'end start'],
   })
 
   return (
-    <section 
+    <section
       ref={containerRef}
-      id="experience" 
+      id="experience"
       className="relative py-20 overflow-hidden"
     >
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black" />
-      <motion.div 
+      <motion.div
         className="absolute inset-0 opacity-30"
         style={{
-          background: "radial-gradient(circle at 50% 50%, var(--primary) 0%, transparent 70%)",
-          scale: scrollYProgress
+          background: 'radial-gradient(circle at 50% 50%, var(--primary) 0%, transparent 70%)',
+          scale: scrollYProgress,
         }}
       />
 
       <div className="relative container mx-auto px-4">
         <div className="max-w-2xl mx-auto text-center mb-12 md:mb-20">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -184,7 +184,7 @@ export function ExperienceSection() {
           >
             Professional Journey
           </motion.h2>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -197,11 +197,10 @@ export function ExperienceSection() {
 
         <div className="space-y-8">
           {experiences.map((experience, index) => (
-            <ExperienceCard key={index} experience={experience} index={index} />
+            <ExperienceCard key={index} experience={experience} />
           ))}
         </div>
       </div>
     </section>
   )
 }
-
