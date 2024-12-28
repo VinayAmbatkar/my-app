@@ -38,12 +38,6 @@ const experiences = [
   }
 ]
 
-const TimelineConnector = () => (
-  <div className="absolute left-8 top-0 h-full w-px bg-gradient-to-b from-primary/50 via-primary/20 to-transparent">
-    <div className="absolute inset-0 animate-pulse bg-gradient-to-b from-primary/50 via-primary/20 to-transparent" />
-  </div>
-)
-
 const TimelineDot = ({ color }: { color: string }) => (
   <motion.div
     initial={{ scale: 0 }}
@@ -61,7 +55,7 @@ const TimelineDot = ({ color }: { color: string }) => (
   </motion.div>
 )
 
-function ExperienceCard({ experience, index }: { experience: typeof experiences[0], index: number }) {
+function ExperienceCard({ experience }: { experience: typeof experiences[0] }) {
   const [isHovered, setIsHovered] = useState(false)
   const cardRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
@@ -99,7 +93,7 @@ function ExperienceCard({ experience, index }: { experience: typeof experiences[
         <div 
           className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           style={{ 
-            background: `radial-gradient(600px circle at var(--mouse-x, 0) var(--mouse-y, 0), ${experience.color}10, transparent 40%)`,
+            background: `radial-gradient(600px circle at var(--mouse-x, 0) var(--mouse-y, 0), ${experience.color}10, transparent 40%)` 
           }}
         />
         
@@ -269,38 +263,20 @@ export function ExperienceSection() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 text-primary mb-4 border border-primary/20 backdrop-blur-sm"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 text-primary font-medium"
           >
-            <Briefcase className="w-4 h-4" />
-            <span className="text-sm font-medium">Career Timeline</span>
+            <ArrowRight className="w-5 h-5" />
+            <span className="text-lg">My Experience</span>
           </motion.div>
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-3xl sm:text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary via-primary-foreground to-primary"
-          >
-            Professional Journey
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-muted-foreground"
-          >
-            A timeline of my professional growth and achievements
-          </motion.p>
+          <h2 className="text-3xl md:text-4xl font-semibold">My Professional Journey</h2>
         </div>
 
-        <div className="relative space-y-12">
-          <TimelineConnector />
-          {experiences.map((experience, index) => (
-            <ExperienceCard key={index} experience={experience} index={index} />
+        <div className="space-y-24">
+          {experiences.map((experience, i) => (
+            <ExperienceCard key={i} experience={experience} />
           ))}
         </div>
       </div>
     </section>
   )
 }
-

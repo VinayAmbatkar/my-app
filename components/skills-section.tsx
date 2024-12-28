@@ -2,8 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
-import { Code2, Database, Wrench, GitBranch, Terminal, Server, Languages, FileCode, Boxes, Workflow, Star, Sparkles } from 'lucide-react'
-import { Progress } from "@/components/ui/progress"
+import { Code2, Database, Wrench, GitBranch, Terminal, Server, Languages, FileCode, Boxes, Workflow, Sparkles } from 'lucide-react'
 
 const skillCategories = [
   {
@@ -88,7 +87,7 @@ const SkillCard = ({ skill, categoryColor }: { skill: typeof skillCategories[0][
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
       initial={{ rotateX: 0 }}
-      whileHover={{ 
+      whileHover={{
         rotateX: 10,
         rotateY: 5,
         translateY: -5,
@@ -102,7 +101,7 @@ const SkillCard = ({ skill, categoryColor }: { skill: typeof skillCategories[0][
         <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-[#000000] to-transparent opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
         
         <div className="flex items-center gap-3 mb-4">
-          <div 
+          <div
             className="p-2 rounded-lg"
             style={{ backgroundColor: `${categoryColor}20` }}
           >
@@ -135,7 +134,7 @@ const SkillCard = ({ skill, categoryColor }: { skill: typeof skillCategories[0][
               >
                 <div className="relative">
                   <div className="text-sm font-medium">{skill.level}%</div>
-                  <div 
+                  <div
                     className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 border-4 border-transparent border-t-black/95"
                   />
                 </div>
@@ -148,7 +147,7 @@ const SkillCard = ({ skill, categoryColor }: { skill: typeof skillCategories[0][
   )
 }
 
-const CategorySection = ({ category, index }: { category: typeof skillCategories[0], index: number }) => {
+const CategorySection = ({ category }: { category: typeof skillCategories[0] }) => {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -168,11 +167,11 @@ const CategorySection = ({ category, index }: { category: typeof skillCategories
       
       <div className="space-y-6">
         <div className="flex items-center gap-3">
-          <div 
+          <div
             className="p-3 rounded-xl"
             style={{ backgroundColor: `${category.color}20` }}
           >
-            <category.icon 
+            <category.icon
               className="w-6 h-6"
               style={{ color: category.color }}
             />
@@ -211,9 +210,9 @@ export function SkillsSection() {
   })
 
   return (
-    <section 
+    <section
       ref={containerRef}
-      id="skills" 
+      id="skills"
       className="relative py-20 overflow-hidden"
     >
       {/* Particles Background */}
@@ -221,7 +220,7 @@ export function SkillsSection() {
 
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black" />
-      <motion.div 
+      <motion.div
         className="absolute inset-0 opacity-30"
         style={{
           background: "radial-gradient(circle at 50% 50%, var(--primary) 0%, transparent 70%)",
@@ -240,7 +239,7 @@ export function SkillsSection() {
             <Sparkles className="w-4 h-4" />
             <span className="text-sm font-medium">Professional Expertise</span>
           </motion.div>
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -248,7 +247,7 @@ export function SkillsSection() {
           >
             Skills & Technologies
           </motion.h2>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -260,12 +259,11 @@ export function SkillsSection() {
         </div>
 
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
-          {skillCategories.map((category, index) => (
-            <CategorySection key={category.title} category={category} index={index} />
+          {skillCategories.map((category) => (
+            <CategorySection key={category.title} category={category} />
           ))}
         </div>
       </div>
     </section>
   )
 }
-

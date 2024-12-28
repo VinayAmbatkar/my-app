@@ -12,7 +12,6 @@ import { ScrollToTop } from '@/components/scroll-to-top'
 import { ChatBot } from '@/components/chat-bot'
 import { AchievementsSection } from '@/components/achievements-section'
 
-
 export default function Page() {
   return (
     <div className="min-h-screen w-full dark bg-black text-white overflow-hidden">
@@ -32,7 +31,7 @@ export default function Page() {
             </div>
 
             <p className="text-lg text-muted-foreground leading-relaxed">
-              I'm a passionate web developer specializing in building exceptional digital experiences. 
+              I am a passionate web developer specializing in building exceptional digital experiences. 
               With expertise in modern web technologies, I create responsive and performant applications 
               that solve real-world problems.
             </p>
@@ -41,7 +40,7 @@ export default function Page() {
               <a 
                 href="https://drive.google.com/file/d/1z8OvScN-6agnIPAiyyUt_5aiueFFYKJA/view?usp=sharing" // Replace with your actual Google Drive file ID
                 target="_blank"
-                rel="My Resume"
+                rel="noopener noreferrer"
                 className="inline-flex h-12 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
               >
                 My Resume
@@ -77,10 +76,9 @@ export default function Page() {
       <ContactSection />
       <Footer />
 
-     {/* Fixed Elements */}
-<ScrollToTop />
-<ChatBot />
-
+      {/* Fixed Elements */}
+      <ScrollToTop />
+      <ChatBot />
 
       {/* Global Styles & Animations */}
       <style jsx global>{`
@@ -105,4 +103,3 @@ export default function Page() {
     </div>
   )
 }
-

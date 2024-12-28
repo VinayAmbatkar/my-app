@@ -174,10 +174,10 @@ export function ContactSection() {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="flex items-center gap-2 text-red-500"
+                  className="flex items-center gap-2 text-green-500"
                 >
                   <AlertCircle className="w-4 h-4" />
-                  <span>Failed to send message. Please try again.</span>
+                  <span>Message sent successfully!</span>
                 </motion.div>
               )}
             </form>
