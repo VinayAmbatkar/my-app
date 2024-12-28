@@ -28,8 +28,8 @@ const projects = [
       'Product Filters',
       'Cloudinary'
     ],
-    link: '#',
-    github: 'https://github.com/yourusername/project-alpha',
+    link: 'https://vshops-fullstack-ecom.netlify.app/',
+    github: 'https://github.com/VinayAmbatkar/FULL_Stack_Ecommerce_VShop-main',
     color: '#3B82F6'
   },
   {
@@ -46,8 +46,8 @@ const projects = [
     description: 'Developed an AI-powered model using Support Vector Machine (SVM) and TensorFlow to predict heat waves. Integrated Google Colab for experimentation and utilized HTML, CSS, and JavaScript for visualization and user interaction.',
     image: 'https://i.postimg.cc/W1bjktQw/Screenshot-2024-12-27-191735.png',
     tags: ['Python', 'TensorFlow', 'SVM', 'Google Colab', 'HTML', 'CSS', 'JavaScript', 'Data Science', 'Predictive Analytics'],
-    link: '#',
-    github: 'https://github.com/yourusername/heat-wave-prediction-model',
+    link: 'https://colab.research.google.com/drive/1HBo-5nzgCra4PZZdNdCVTZwRb2BIjtfs',
+    github: 'https://colab.research.google.com/drive/1HBo-5nzgCra4PZZdNdCVTZwRb2BIjtfs',
     color: '#F59E0B'
   },
   {
