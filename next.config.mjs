@@ -1,7 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-      domains: ['i.postimg.cc'], // Add the domain here
+      domains: [
+        'media.licdn.com', 
+        'i.postimg.cc', 
+        'encrypted-tbn0.gstatic.com'  // Add the new domain here
+      ], 
     },
   };
   
