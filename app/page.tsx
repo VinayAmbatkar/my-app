@@ -12,6 +12,7 @@ import { ScrollToTop } from '@/components/scroll-to-top'
 import { ChatBot } from '@/components/chat-bot'
 import { AchievementsSection } from '@/components/achievements-section'
 
+
 export default function Page() {
   return (
     <div className="min-h-screen w-full dark bg-black text-white overflow-hidden">
