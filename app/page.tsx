@@ -38,7 +38,7 @@ export default function Page() {
 
             <div className="flex flex-col sm:flex-row gap-4">
               <a 
-                href="https://drive.google.com/file/d/1z8OvScN-6agnIPAiyyUt_5aiueFFYKJA/view?usp=sharing" // Replace with your actual Google Drive file ID
+                href="https://drive.google.com/file/d/1SoYrNsn7LBsT1gquhp7a8TTFqCZq8CzU/view?usp=sharing" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex h-12 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"

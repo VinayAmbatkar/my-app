@@ -1,16 +1,17 @@
-'use client'
+'use client';
 
-import { useRef } from 'react'
-import { Github, ExternalLink, Boxes } from 'lucide-react'
-import Image from 'next/image'
-import { motion, useScroll } from 'framer-motion'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
+import { useRef } from 'react';
+import { Github, ExternalLink, Boxes } from 'lucide-react';
+import Image from 'next/image';
+import { motion, useScroll } from 'framer-motion';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 
 const projects = [
   {
     title: 'Full-stack E-commerce Platform',
-    description: 'A scalable, feature-rich e-commerce platform built with modern technologies. Includes an admin panel for product and user management, dynamic cart, secure payment integration, product filters, zoom functionality, authentication, and reviews. Features optimized MongoDB queries for enhanced performance.',
+    description:
+      'A scalable, feature-rich e-commerce platform built with modern technologies. Includes an admin panel for product and user management, dynamic cart, secure payment integration, product filters, zoom functionality, authentication, and reviews. Features optimized MongoDB queries for enhanced performance.',
     image: 'https://i.postimg.cc/rsGFd5LK/Dark-Laptop-Review-Youtube-Thumbnail.png',
     tags: [
       'React.js',
@@ -26,33 +27,36 @@ const projects = [
       'Responsive Design',
       'Performance Optimization',
       'Product Filters',
-      'Cloudinary'
+      'Cloudinary',
     ],
     link: 'https://vshops-fullstack-ecom.netlify.app/',
     github: 'https://github.com/VinayAmbatkar/FULL_Stack_Ecommerce_VShop-main',
-    color: '#3B82F6'
+    color: '#3B82F6',
   },
   {
     title: 'React Resume Builder',
-    description: 'Created a Resume Builder web application with React and JavaScript, allowing users to easily create, edit, and export resumes. The tool features secure local storage and responsive design, and has been effectively used by over 50+ students.',
+    description:
+      'Created a Resume Builder web application with React and JavaScript, allowing users to easily create, edit, and export resumes. The tool features secure local storage and responsive design, and has been effectively used by over 50+ students.',
     image: 'https://i.postimg.cc/667HbwNL/Dark-Laptop-Review-Youtube-Thumbnail-1.png',
     tags: ['React', 'JavaScript', 'Responsive Design', 'Modular Architecture', 'Vercel', 'Frontend Development', 'Local Storage', 'User-Friendly'],
     link: 'https://react-resume-builder-s4fu0or74-vinay-ambatkars-projects.vercel.app/',
-    github: 'https://github.com/VinayAmbatkar/React-Resume-Builder',
-    color: '#2563EB'
+    github: 'https://github.com/VinayAmbatkar/Resume-Builder-master',
+    color: '#2563EB',
   },
   {
     title: 'Heat Wave Prediction Model',
-    description: 'Developed an AI-powered model using Support Vector Machine (SVM) and TensorFlow to predict heat waves. Integrated Google Colab for experimentation and utilized HTML, CSS, and JavaScript for visualization and user interaction.',
+    description:
+      'Developed an AI-powered model using Support Vector Machine (SVM) and TensorFlow to predict heat waves. Integrated Google Colab for experimentation and utilized HTML, CSS, and JavaScript for visualization and user interaction.',
     image: 'https://i.postimg.cc/W1bjktQw/Screenshot-2024-12-27-191735.png',
     tags: ['Python', 'TensorFlow', 'SVM', 'Google Colab', 'HTML', 'CSS', 'JavaScript', 'Data Science', 'Predictive Analytics'],
     link: 'https://colab.research.google.com/drive/1HBo-5nzgCra4PZZdNdCVTZwRb2BIjtfs',
     github: 'https://colab.research.google.com/drive/1HBo-5nzgCra4PZZdNdCVTZwRb2BIjtfs',
-    color: '#F59E0B'
+    color: '#F59E0B',
   },
   {
     title: 'Museum Booking System',
-    description: 'A comprehensive booking system for museums featuring ticket booking and unbooking, ticket generation and printing, and slot booking. Includes a responsive and optimized UI with a robust backend. Integrated a suggestion system and secure payment handling with Razorpay.',
+    description:
+      'A comprehensive booking system for museums featuring ticket booking and unbooking, ticket generation and printing, and slot booking. Includes a responsive and optimized UI with a robust backend. Integrated a suggestion system and secure payment handling with Razorpay.',
     image: 'https://i.postimg.cc/NGnQZRP9/Screenshot-2024-12-27-192621.png',
     tags: [
       'React',
@@ -65,13 +69,13 @@ const projects = [
       'Algorithm',
       'Responsive Design',
       'Backend Optimization',
-      'UI/UX Design'
+      'UI/UX Design',
     ],
-    link: '#',
-    github: 'https://github.com/yourusername/museum-booking-system',
-    color: '#4ADE80'
-  }
-]
+    link: 'https://muessum-tickit-booking-system-p149xyu88.vercel.app/',
+    github: 'https://github.com/VinayAmbatkar/Muessum_booking_system_updated',
+    color: '#4ADE80',
+  },
+];
 
 function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
   return (
@@ -79,7 +83,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.2 }}
-      viewport={{ once: true, margin: "-100px" }}
+      viewport={{ once: true, margin: '-100px' }}
       className="group relative"
     >
       <div className="relative grid md:grid-cols-5 gap-8 p-6 md:p-8 rounded-2xl border border-primary/10 bg-black/20 backdrop-blur-sm hover:border-primary/20 transition-colors">
@@ -91,9 +95,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
                 {project.title}
               </h3>
             </div>
-            <p className="text-muted-foreground">
-              {project.description}
-            </p>
+            <p className="text-muted-foreground">{project.description}</p>
           </div>
           <div className="flex flex-wrap gap-2">
             {project.tags.map((tag, tagIndex) => (
@@ -114,24 +116,25 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
               className="group/btn relative overflow-hidden border-primary/20"
               style={{ borderColor: `${project.color}30` }}
             >
-              <a href={project.link} className="flex items-center gap-2">
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2"
+              >
                 <span>Live Demo</span>
                 <ExternalLink className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
-                <div 
-                  className="absolute inset-0 opacity-0 group-hover/btn:opacity-10 transition-opacity" 
-                  style={{ backgroundColor: project.color }} 
+                <div
+                  className="absolute inset-0 opacity-0 group-hover/btn:opacity-10 transition-opacity"
+                  style={{ backgroundColor: project.color }}
                 />
               </a>
             </Button>
-            <Button
-              asChild
-              variant="ghost"
-              className="group/btn"
-            >
-              <a 
-                href={project.github} 
-                target="_blank" 
-                rel="noopener noreferrer" 
+            <Button asChild variant="ghost" className="group/btn">
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-2"
               >
                 <Github className="w-4 h-4 transition-transform group-hover/btn:scale-110" />
@@ -142,7 +145,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
         </div>
         <div className="md:col-span-3 relative">
           <div className="relative aspect-[16/9] rounded-xl overflow-hidden group-hover:shadow-2xl transition-all duration-500">
-            <div 
+            <div
               className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity duration-500"
               style={{ backgroundColor: project.color }}
             />
@@ -153,46 +156,40 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
               className="object-cover transition-transform duration-500 group-hover:scale-105"
               priority
             />
-            <div 
-              className="absolute inset-0 bg-gradient-to-tr from-black/80 via-black/50 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500"
-            />
+            <div className="absolute inset-0 bg-gradient-to-tr from-black/80 via-black/50 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500" />
           </div>
-          <div 
+          <div
             className="absolute -inset-px rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-            style={{ 
+            style={{
               background: `linear-gradient(45deg, ${project.color}20, transparent 40%)`,
             }}
           />
         </div>
       </div>
     </motion.div>
-  )
+  );
 }
 
 export function ProjectsSection() {
-  const containerRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"]
-  })
+    offset: ['start end', 'end start'],
+  });
 
   return (
-    <section 
-      ref={containerRef}
-      id="projects" 
-      className="relative py-20 overflow-hidden"
-    >
+    <section ref={containerRef} id="projects" className="relative py-20 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black" />
-      <motion.div 
+      <motion.div
         className="absolute inset-0 opacity-30"
         style={{
-          background: "radial-gradient(circle at 50% 50%, var(--primary) 0%, transparent 70%)",
-          scale: scrollYProgress
+          background: 'radial-gradient(circle at 50% 50%, var(--primary) 0%, transparent 70%)',
+          scale: scrollYProgress,
         }}
       />
       <div className="relative container mx-auto px-4">
         <div className="max-w-2xl mx-auto text-center mb-12 md:mb-20">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -200,7 +197,7 @@ export function ProjectsSection() {
           >
             Featured Projects
           </motion.h2>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -217,5 +214,5 @@ export function ProjectsSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
