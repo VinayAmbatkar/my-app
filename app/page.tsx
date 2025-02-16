@@ -11,13 +11,16 @@ import { Footer } from '@/components/footer'
 import { ScrollToTop } from '@/components/scroll-to-top'
 import { ChatBot } from '@/components/chat-bot'
 import { AchievementsSection } from '@/components/achievements-section'
+import SplashCursor from '../src/blocks/Animations/SplashCursor/SplashCursor'
 
 export default function Page() {
   return (
     <div className="min-h-screen w-full dark bg-black text-white overflow-hidden">
       <Navbar />
+     
       
       {/* Hero Section */}
+      <SplashCursor />
       <div className="container mx-auto px-4 py-12 sm:py-20">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
