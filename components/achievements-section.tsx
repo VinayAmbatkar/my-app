@@ -19,7 +19,7 @@ const achievements = [
     description: 'Received Runner-up at the college-level programming challenge focused on Data Structures and Algorithms.',
     icon: Medal,
     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3DDDhEAOdY3I7WiYvcLbCMKBk-PNzN1w838hYiCMVbnM01hdQbCl-ijdLrW2UeyN6iN0&usqp=CAU',
-    color: '#C0C0C0'
+    color: '#6f6ff9ff'
   },
 ]
 
