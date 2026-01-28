@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from "react"
-import { Menu} from 'lucide-react'
+import { Menu } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import {
   Sheet,
@@ -29,10 +29,9 @@ export function Navbar() {
   }, [])
 
   return (
-    <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-      isScrolled ? 'bg-black/40 backdrop-blur-xl border-b border-primary/10' : 'bg-transparent backdrop-blur-sm bg-black/20'
-    }`}>
-      <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
+    <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${isScrolled ? 'bg-black/40 backdrop-blur-xl border-b border-primary/10' : 'bg-transparent backdrop-blur-sm bg-black/20'
+      }`}>
+      <nav className="container mx-auto px-6 sm:px-8 lg:px-12 h-16 flex items-center justify-between max-w-7xl">
         {/* Logo */}
         <a href="#" className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary-foreground">
           ☠️

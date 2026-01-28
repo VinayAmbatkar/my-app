@@ -12,7 +12,7 @@ const skills = [
   { icon: SiExpress, label: 'Express', color: '#FFFFFF' },
   { icon: SiTensorflow, label: 'AI/ML', color: '#FF6F00' },
   { icon: FaNodeJs, label: 'Node.js', color: '#339933' },
- // { icon: Binary, label: 'C++', color: '#00599C' },
+  // { icon: Binary, label: 'C++', color: '#00599C' },
   { icon: Code2, label: 'DSA', color: '#FF4B4B' }
 ]
 
@@ -25,16 +25,16 @@ export default function RotatingSkills() {
 
   return (
     <div className="relative w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] flex items-center justify-center">
- {/* Profile Image */}
-<div className="relative z-20 w-32 sm:w-48 h-32 sm:h-48 rounded-full overflow-hidden shadow-xl bg-gradient-to-br from-primary/20 to-primary/10 group">
-  <Image
-    src="https://i.postimg.cc/TPWDX84v/Me-removebg-preview.png"
-    alt="Profile"
-    fill
-    className="object-cover transition-all duration-500 ease-in-out group-hover:scale-110 group-hover:brightness-110 group-hover:shadow-xl"
-    priority
-  />
-</div>
+      {/* Profile Image */}
+      <div className="relative z-20 w-32 sm:w-48 h-32 sm:h-48 rounded-full overflow-hidden shadow-xl bg-gradient-to-br from-primary/20 to-primary/10 group">
+        <Image
+          src="https://i.postimg.cc/TPWDX84v/Me-removebg-preview.png"
+          alt="Profile"
+          fill
+          className="object-cover transition-all duration-500 ease-in-out group-hover:scale-110 group-hover:brightness-110 group-hover:shadow-xl"
+          priority
+        />
+      </div>
 
 
       {/* Rotating Skills */}
@@ -44,7 +44,7 @@ export default function RotatingSkills() {
       >
         {skills.map((Skill, index) => {
           const angle = (index * 360) / skills.length
-          const radius = typeof window !== 'undefined' ? 
+          const radius = mounted && typeof window !== 'undefined' ?
             (window.innerWidth < 640 ? Math.min(120, window.innerWidth * 0.3) : 160) : 160
           const x = radius * Math.cos((angle * Math.PI) / 180)
           const y = radius * Math.sin((angle * Math.PI) / 180)

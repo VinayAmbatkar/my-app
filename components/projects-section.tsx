@@ -1,218 +1,328 @@
 'use client';
 
-import { useRef } from 'react';
-import { Github, ExternalLink, Boxes } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { motion, useScroll } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+import { ExternalLink, Github } from 'lucide-react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
-const projects = [
+// Projects data
+const PROJECTS = [
   {
-    title: 'Full-stack E-commerce Platform',
-    description:
-      'A scalable, feature-rich e-commerce platform built with modern technologies. Includes an admin panel for product and user management, dynamic cart, secure payment integration, product filters, zoom functionality, authentication, and reviews. Features optimized MongoDB queries for enhanced performance.',
+    name: 'Full-stack E-commerce Platform',
     image: 'https://i.postimg.cc/rsGFd5LK/Dark-Laptop-Review-Youtube-Thumbnail.png',
-    tags: [
-      'React.js',
-      'JavaScript',
-      'Material UI',
-      'Node.js',
-      'Express.js',
-      'MongoDB',
-      'Redux',
-      'Authentication',
-      'Payment Gateway',
-      'API Integration',
-      'Responsive Design',
-      'Performance Optimization',
-      'Product Filters',
-      'Cloudinary',
-    ],
-    link: 'https://vshops-fullstack-ecom.netlify.app/',
+    description: 'A scalable, feature-rich e-commerce platform with admin panel and payment integration.',
+    gradient: ['#1F6582', '#1ABCFE'],
+    url: 'https://vshops-fullstack-ecom.netlify.app/',
     github: 'https://github.com/VinayAmbatkar/FULL_Stack_Ecommerce_VShop-main',
-    color: '#3B82F6',
+    tech: ['React', 'Node.js', 'MongoDB', 'Redux'],
   },
   {
-    title: 'React Resume Builder',
-    description:
-      'Created a Resume Builder web application with React and JavaScript, allowing users to easily create, edit, and export resumes. The tool features secure local storage and responsive design, and has been effectively used by over 50+ students.',
+    name: 'React Resume Builder',
     image: 'https://i.postimg.cc/667HbwNL/Dark-Laptop-Review-Youtube-Thumbnail-1.png',
-    tags: ['React', 'JavaScript', 'Responsive Design', 'Modular Architecture', 'Vercel', 'Frontend Development', 'Local Storage', 'User-Friendly'],
-    link: 'https://react-resume-builder-s4fu0or74-vinay-ambatkars-projects.vercel.app/',
+    description: 'Create, edit, and export resumes easily. Used by 50+ students.',
+    gradient: ['#153BB9', '#0E2C8B'],
+    url: 'https://react-resume-builder-s4fu0or74-vinay-ambatkars-projects.vercel.app/',
     github: 'https://github.com/VinayAmbatkar/Resume-Builder-master',
-    color: '#2563EB',
+    tech: ['React', 'JavaScript', 'CSS'],
   },
   {
-    title: 'Heat Wave Prediction Model',
-    description:
-      'Developed an AI-powered model using Support Vector Machine (SVM) and TensorFlow to predict heat waves. Integrated Google Colab for experimentation and utilized HTML, CSS, and JavaScript for visualization and user interaction.',
+    name: 'Heat Wave Prediction Model',
     image: 'https://i.postimg.cc/W1bjktQw/Screenshot-2024-12-27-191735.png',
-    tags: ['Python', 'TensorFlow', 'SVM', 'Google Colab', 'HTML', 'CSS', 'JavaScript', 'Data Science', 'Predictive Analytics'],
-    link: 'https://colab.research.google.com/drive/1HBo-5nzgCra4PZZdNdCVTZwRb2BIjtfs',
+    description: 'AI-powered model using SVM and TensorFlow to predict heat waves.',
+    gradient: ['#F59E0B', '#D97706'],
+    url: 'https://colab.research.google.com/drive/1HBo-5nzgCra4PZZdNdCVTZwRb2BIjtfs',
     github: 'https://colab.research.google.com/drive/1HBo-5nzgCra4PZZdNdCVTZwRb2BIjtfs',
-    color: '#F59E0B',
+    tech: ['Python', 'TensorFlow', 'SVM'],
   },
   {
-    title: 'Museum Booking System',
-    description:
-      'A comprehensive booking system for museums featuring ticket booking and unbooking, ticket generation and printing, and slot booking. Includes a responsive and optimized UI with a robust backend. Integrated a suggestion system and secure payment handling with Razorpay.',
+    name: 'Museum Booking System',
     image: 'https://i.postimg.cc/NGnQZRP9/Screenshot-2024-12-27-192621.png',
-    tags: [
-      'React',
-      'MongoDB',
-      'Express.js',
-      'Razorpay',
-      'Slot Booking',
-      'Ticket Booking',
-      'Suggestion System',
-      'Algorithm',
-      'Responsive Design',
-      'Backend Optimization',
-      'UI/UX Design',
-    ],
-    link: 'https://muessum-tickit-booking-system-p149xyu88.vercel.app/',
+    description: 'Comprehensive booking system with ticket generation and Razorpay integration.',
+    gradient: ['#245B57', '#004741'],
+    url: 'https://muessum-tickit-booking-system-p149xyu88.vercel.app/',
     github: 'https://github.com/VinayAmbatkar/Muessum_booking_system_updated',
-    color: '#4ADE80',
+    tech: ['React', 'MongoDB', 'Node.js'],
   },
 ];
 
-function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
+// Project Tile Component
+const ProjectTile = ({
+  project,
+}: {
+  project: typeof PROJECTS[0];
+}) => {
+  const projectCard = useRef<HTMLDivElement>(null);
+  const {
+    name,
+    tech,
+    image,
+    description,
+    url,
+    github,
+    gradient: [stop1, stop2],
+  } = project;
+
+  useEffect(() => {
+    const loadVanillaTilt = async () => {
+      if (projectCard.current && typeof window !== 'undefined') {
+        try {
+          const VanillaTilt = (await import('vanilla-tilt')).default;
+          VanillaTilt.init(projectCard.current, {
+            max: 5,
+            speed: 400,
+            glare: true,
+            'max-glare': 0.2,
+            gyroscope: false,
+          });
+        } catch (e) {
+          // Tilt not loaded
+        }
+      }
+    };
+    loadVanillaTilt();
+  }, []);
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.2 }}
-      viewport={{ once: true, margin: '-100px' }}
-      className="group relative"
+    <a
+      href={url}
+      target="_blank"
+      rel="noreferrer"
+      className="project-card flex-shrink-0 overflow-hidden rounded-3xl snap-start block"
+      style={{
+        width: 'min(38rem, 85vw)',
+      }}
     >
-      <div className="relative grid md:grid-cols-5 gap-8 p-6 md:p-8 rounded-2xl border border-primary/10 bg-black/20 backdrop-blur-sm hover:border-primary/20 transition-colors">
-        <div className="md:col-span-2 space-y-6">
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <Boxes className="w-5 h-5 text-primary" style={{ color: project.color }} />
-              <h3 className="text-2xl font-bold" style={{ color: project.color }}>
-                {project.title}
-              </h3>
-            </div>
-            <p className="text-muted-foreground">{project.description}</p>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {project.tags.map((tag, tagIndex) => (
-              <Badge
-                key={tagIndex}
-                variant="secondary"
-                className="bg-primary/10 text-primary hover:bg-primary/20"
-                style={{ borderColor: `${project.color}20` }}
-              >
-                {tag}
-              </Badge>
-            ))}
-          </div>
-          <div className="flex items-center gap-4 pt-4">
-            <Button
-              asChild
-              variant="outline"
-              className="group/btn relative overflow-hidden border-primary/20"
-              style={{ borderColor: `${project.color}30` }}
-            >
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2"
-              >
-                <span>Live Demo</span>
-                <ExternalLink className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
-                <div
-                  className="absolute inset-0 opacity-0 group-hover/btn:opacity-10 transition-opacity"
-                  style={{ backgroundColor: project.color }}
-                />
-              </a>
-            </Button>
-            <Button asChild variant="ghost" className="group/btn">
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2"
-              >
-                <Github className="w-4 h-4 transition-transform group-hover/btn:scale-110" />
-                <span>Source</span>
-              </a>
-            </Button>
+      <div
+        ref={projectCard}
+        className="project-tile rounded-3xl relative p-6 flex-col flex justify-between w-full"
+        style={{
+          background: `linear-gradient(90deg, ${stop1} 0%, ${stop2} 100%)`,
+          height: '22rem',
+          transformStyle: 'preserve-3d',
+          transform: 'perspective(1000px)',
+        }}
+      >
+        {/* Background Pattern */}
+        <div
+          className="absolute inset-0 opacity-10 rounded-3xl"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        />
+
+        {/* Project Image */}
+        <div className="absolute top-4 right-4 w-48 md:w-64 h-auto z-10">
+          <div
+            className="relative rounded-xl shadow-2xl overflow-hidden"
+            style={{ transform: 'rotate(-12deg)' }}
+          >
+            <Image
+              src={image}
+              alt={name}
+              width={280}
+              height={180}
+              className="object-cover"
+              style={{ aspectRatio: '16/10' }}
+            />
           </div>
         </div>
-        <div className="md:col-span-3 relative">
-          <div className="relative aspect-[16/9] rounded-xl overflow-hidden group-hover:shadow-2xl transition-all duration-500">
+
+        {/* Top Gradient */}
+        <div
+          className="absolute top-0 left-0 w-full h-20 rounded-t-3xl"
+          style={{
+            background: `linear-gradient(180deg, ${stop1} 0%, rgba(0,0,0,0) 100%)`,
+          }}
+        />
+
+        {/* Bottom Gradient */}
+        <div
+          className="absolute bottom-0 left-0 w-full h-32 rounded-b-3xl"
+          style={{
+            background: `linear-gradient(0deg, ${stop1} 10%, rgba(0,0,0,0) 100%)`,
+          }}
+        />
+
+        {/* Project Name */}
+        <h1 className="text-2xl sm:text-3xl z-10 pl-2 font-bold text-white max-w-[60%]">
+          {name}
+        </h1>
+
+        {/* Tech Stack */}
+        <div className="absolute left-6 top-1/2 -translate-y-1/2 hidden sm:flex flex-col gap-2 z-10">
+          {tech.slice(0, 3).map((t, i) => (
             <div
-              className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity duration-500"
-              style={{ backgroundColor: project.color }}
-            />
-            <Image
-              src={project.image}
-              alt={project.title}
-              fill
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-tr from-black/80 via-black/50 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500" />
+              key={t}
+              className={`${i % 2 === 0 ? 'ml-8' : ''} px-3 py-1 bg-white/20 rounded-full backdrop-blur-sm`}
+            >
+              <span className="text-xs font-medium text-white">{t}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Description & Actions */}
+        <div className="z-10 flex items-end justify-between gap-4">
+          <h2 className="text-base md:text-lg tracking-wide font-medium text-white/90 max-w-[55%]">
+            {description}
+          </h2>
+
+          {/* Action Buttons */}
+          <div className="flex items-center gap-3 flex-shrink-0">
+            <a
+              href={github}
+              target="_blank"
+              rel="noreferrer"
+              className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-white/20 transition-colors"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Github className="w-5 h-5 text-white" />
+            </a>
+            <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+              <ExternalLink className="w-5 h-5 text-white" />
+            </div>
           </div>
-          <div
-            className="absolute -inset-px rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-            style={{
-              background: `linear-gradient(45deg, ${project.color}20, transparent 40%)`,
-            }}
-          />
         </div>
       </div>
-    </motion.div>
+    </a>
   );
-}
+};
 
+// Main Projects Section with Auto Horizontal Scroll
 export function ProjectsSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start end', 'end start'],
-  });
+  const sectionRef = useRef<HTMLElement>(null);
+  const triggerRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
+    // Register GSAP plugin
+    gsap.registerPlugin(ScrollTrigger);
+
+    const section = sectionRef.current;
+    const scrollContainer = scrollContainerRef.current;
+
+    if (!section || !scrollContainer) return;
+
+    // Wait for layout to stabilize
+    const timer = setTimeout(() => {
+      // Calculate scroll distance
+      const scrollWidth = scrollContainer.scrollWidth;
+      const viewportWidth = scrollContainer.offsetWidth;
+      const scrollDistance = scrollWidth - viewportWidth;
+
+      if (scrollDistance <= 0) return;
+
+      // Create horizontal scroll animation
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: triggerRef.current,
+          start: 'top top',
+          end: () => `+=${scrollDistance}`,
+          pin: true,
+          scrub: 1,
+          pinSpacing: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      tl.to(scrollContainer, {
+        x: -scrollDistance,
+        ease: 'none',
+      });
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+      ScrollTrigger.getAll().forEach((st) => {
+        if (st.trigger === triggerRef.current) {
+          st.kill();
+        }
+      });
+    };
+  }, [mounted]);
+
+  // Mobile fallback - normal horizontal scroll
+  if (!mounted) {
+    return (
+      <section className="w-full relative py-16 md:py-24 overflow-hidden" id="projects">
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-900/50 to-black" />
+        <div className="relative 2xl:container xl:px-20 md:px-12 px-4 mx-auto">
+          <div className="flex flex-col mb-12">
+            <p className="uppercase tracking-widest text-gray-400 text-sm">PROJECTS</p>
+            <h1 className="md:text-5xl text-4xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent w-fit mt-2">
+              My Works
+            </h1>
+          </div>
+          <div className="flex gap-6 md:gap-10 overflow-x-auto">
+            {PROJECTS.map((project) => (
+              <ProjectTile project={project} key={project.name} />
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
-    <section ref={containerRef} id="projects" className="relative py-20 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black" />
-      <motion.div
-        className="absolute inset-0 opacity-30"
-        style={{
-          background: 'radial-gradient(circle at 50% 50%, var(--primary) 0%, transparent 70%)',
-          scale: scrollYProgress,
-        }}
-      />
-      <div className="relative container mx-auto px-4">
-        <div className="max-w-2xl mx-auto text-center mb-12 md:mb-20">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-3xl sm:text-4xl font-bold mb-4"
-          >
-            Featured Projects
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-muted-foreground"
-          >
-            Explore some of my recent work and technical achievements
-          </motion.p>
-        </div>
-        <div className="space-y-8 md:space-y-12">
-          {projects.map((project, index) => (
-            <ProjectCard key={index} project={project} index={index} />
-          ))}
+    <section ref={sectionRef} className="w-full relative" id="projects">
+      {/* Trigger wrapper for pinning */}
+      <div ref={triggerRef} className="min-h-screen flex flex-col justify-center">
+        {/* Background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-900/50 to-black" />
+
+        <div className="relative py-16 md:py-24">
+          <div className="2xl:container xl:px-20 md:px-12 px-4 mx-auto">
+            {/* Section Title */}
+            <div className="flex flex-col mb-12">
+              <p className="uppercase tracking-[0.3em] text-gray-400 text-sm font-medium mb-3">
+                PROJECTS
+              </p>
+              <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mb-4">
+                My Works
+              </h1>
+              <h2 className="text-lg md:text-xl text-gray-300 max-w-3xl">
+                I have contributed to various projects ranging from Frontend development, Full-stack applications, and AI/ML models
+              </h2>
+            </div>
+          </div>
+
+          {/* Projects Wrapper - Horizontal Scroll Container */}
+          <div className="xl:px-20 md:px-12 px-4">
+            <div
+              ref={scrollContainerRef}
+              className="flex gap-6 md:gap-10 project-wrapper"
+              style={{
+                willChange: 'transform',
+              }}
+            >
+              {PROJECTS.map((project) => (
+                <ProjectTile project={project} key={project.name} />
+              ))}
+
+              {/* End spacer */}
+              <div className="flex-shrink-0 w-20" />
+            </div>
+          </div>
+
+          {/* Scroll hint */}
+          <div className="2xl:container xl:px-20 md:px-12 px-4 mx-auto mt-8">
+            <p className="text-gray-500 text-sm flex items-center gap-2">
+              <span className="hidden md:inline">↓ Scroll down to explore projects</span>
+              <span className="md:hidden">← Swipe to explore →</span>
+            </p>
+          </div>
         </div>
       </div>
     </section>
   );
 }
+
+export default ProjectsSection;

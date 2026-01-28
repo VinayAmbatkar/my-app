@@ -1,7 +1,7 @@
 /*
-	jsrepo 1.36.0
-	Installed from https://reactbits.dev/default/
-	16-2-2025
+  jsrepo 1.36.0
+  Installed from https://reactbits.dev/default/
+  16-2-2025
 */
 
 'use client';
@@ -1213,6 +1213,7 @@ function SplashCursor({
           width: '100vw',
           height: '100vh',
           display: 'block',
+          opacity: 0.4,
         }}
       />
     </div>

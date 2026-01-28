@@ -40,6 +40,7 @@ body {
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
   }
+
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
@@ -72,7 +73,64 @@ body {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Timeline Section Styles */
+.text-gradient {
+  background: linear-gradient(90deg, #6dd5ed 0%, #2193b0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section-heading {
+  @apply md:text-5xl text-4xl font-bold w-fit;
+  background: linear-gradient(90deg, #6dd5ed 0%, #2193b0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section-title-sm {
+  @apply uppercase tracking-widest text-gray-200 text-sm;
+}
+
+.line-svg line {
+  transform-origin: center top;
+}
+
+.line-svg .str {
+  fill: none;
+}
+
+.line-svg .dot {
+  fill: none;
+}
+
+/* Project Wrapper - Hide Scrollbar */
+.project-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.project-wrapper {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Project Tile Styles */
+.project-tile {
+  transform-style: preserve-3d;
+}
+
+.project-tile img {
+  object-fit: cover;
+}
+
+/* Tall screen utility */
+@media (min-height: 650px) {
+  .tall\:mt-12 {
+    margin-top: 3rem;
   }
 }
