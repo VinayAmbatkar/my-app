@@ -75,7 +75,7 @@ const ProjectTile = ({
             'max-glare': 0.2,
             gyroscope: false,
           });
-        } catch (e) {
+        } catch {
           // Tilt not loaded
         }
       }
@@ -241,8 +241,9 @@ export function ProjectsSection() {
 
     return () => {
       clearTimeout(timer);
+      const trigger = triggerRef.current;
       ScrollTrigger.getAll().forEach((st) => {
-        if (st.trigger === triggerRef.current) {
+        if (st.trigger === trigger) {
           st.kill();
         }
       });

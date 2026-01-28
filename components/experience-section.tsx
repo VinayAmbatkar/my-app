@@ -135,7 +135,7 @@ export function ExperienceSection() {
   useEffect(() => {
     const cards = cardsRef.current;
 
-    cards.forEach((card, index) => {
+    cards.forEach((card) => {
       if (!card) return;
 
       gsap.fromTo(
