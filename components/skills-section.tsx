@@ -42,27 +42,46 @@ const skillCategories = [
 ]
 
 const ParticlesBackground = () => {
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) return null
+
+  // Generate particles with seeded positions
+  const particles = Array.from({ length: 50 }, (_, i) => ({
+    id: i,
+    x: ((i * 17) % 100) + "%",
+    y: ((i * 23) % 100) + "%",
+    scale: 0.5 + ((i % 5) * 0.1),
+    opacity: 0.2 + ((i % 3) * 0.1),
+    duration: 10 + (i % 10),
+    delay: i % 10
+  }))
+
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {[...Array(50)].map((_, i) => (
+      {particles.map((particle) => (
         <motion.div
-          key={i}
+          key={particle.id}
           className="absolute w-1 h-1 bg-primary/30 rounded-full"
           initial={{
-            x: Math.random() * 100 + "%",
-            y: Math.random() * 100 + "%",
-            scale: Math.random() * 0.5 + 0.5,
-            opacity: Math.random() * 0.3 + 0.2
+            x: particle.x,
+            y: particle.y,
+            scale: particle.scale,
+            opacity: particle.opacity
           }}
           animate={{
             y: ["-10%", "110%"],
             opacity: [0, 1, 0]
           }}
           transition={{
-            duration: Math.random() * 10 + 10,
+            duration: particle.duration,
             repeat: Infinity,
             ease: "linear",
-            delay: Math.random() * 10
+            delay: particle.delay
           }}
         />
       ))}
@@ -96,10 +115,10 @@ const SkillCard = ({ skill, categoryColor }: { skill: typeof skillCategories[0][
       className="relative group"
     >
       <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      
+
       <div className="relative p-6 rounded-xl border border-primary/10 bg-black/40 backdrop-blur-md hover:border-primary/30 transition-all duration-300 transform preserve-3d">
         <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-[#000000] to-transparent opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
-        
+
         <div className="flex items-center gap-3 mb-4">
           <div
             className="p-2 rounded-lg"
@@ -164,7 +183,7 @@ const CategorySection = ({ category }: { category: typeof skillCategories[0] }) 
       className="relative"
     >
       <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#000000] to-transparent opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
-      
+
       <div className="space-y-6">
         <div className="flex items-center gap-3">
           <div
@@ -213,7 +232,8 @@ export function SkillsSection() {
     <section
       ref={containerRef}
       id="skills"
-      className="relative py-20 overflow-hidden"
+      className="relative py-20 overflow-hidden bg-black"
+      style={{ zIndex: 10 }}
     >
       {/* Particles Background */}
       <ParticlesBackground />

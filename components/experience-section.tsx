@@ -1,282 +1,416 @@
-'use client'
+'use client';
 
-import { useRef, useState, useEffect } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { Building2, Calendar, MapPin, ArrowRight, Briefcase, CircleDot } from 'lucide-react'
-import Image from 'next/image'
+import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { Calendar, MapPin, Briefcase, X, Download, FileText } from 'lucide-react';
 
-const experiences = [
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+interface Experience {
+  year: string;
+  role: string;
+  company: string;
+  location?: string;
+  description: string;
+  achievements: string[];
+  technologies: string[];
+  logo?: string;
+  image?: string;
+}
+
+const EXPERIENCES: Experience[] = [
   {
-    title: 'Frontend Developer',
-    company: 'Avalanche Hi-Tech Enterprise',
-    period: 'Dec 2023 - Nov 2024',
-    location: 'Nagpur, Maharashtra',
-    logo: 'https://media.licdn.com/dms/image/v2/D4D0BAQF4prZXztTIwg/company-logo_200_200/company-logo_200_200/0/1704958446251/avalanche_high_tech_enterprise_logo?e=1743638400&v=beta&t=1MUixbmcJZY6-uodYn4Dn6fC1KJz-UQscqLFQWaKXek',
-    color: '#3B82F6',
+    year: 'May 2025 - Present',
+    role: 'Full Stack Developer',
+    company: 'NNIIT (EnTech Platform)',
+    location: 'Hyderabad, Telangana (On-site)',
+    description: 'Led end-to-end development of a large-scale EnTech platform using React.js, Node.js, and MongoDB.',
     achievements: [
-      'Built responsive UIs with React.js & Modern CSS',
-      'Optimized front-end performance & scalability',
-      'Led API integration & user-centered design',
-      'Developed distributed storage solutions'
+      'Integrated LLM-based systems to deliver smart insights and enhance platform intelligence',
+      'Built a real-time Smart Meter Data Gateway handling data from 100K+ devices with high throughput and reliability',
+      'Developed a secure Role-Based Access Control (RBAC) system to manage user permissions and ensure data security',
+      'Ensured high performance, reliability, and security across the platform through optimization and best practices',
+      'Collaborated with cross-functional teams including product managers, designers, and QA to deliver features on schedule',
+      'Participated in code reviews, architecture discussions, and sprint planning to maintain code quality and team alignment',
     ],
-    skills: ['React.js', 'TypeScript', 'HTML5/CSS3', 'API Integration']
+    technologies: ['React.js', 'Node.js', 'MongoDB', 'LLM', 'RBAC', 'IoT Gateway', 'REST API'],
+    logo: '/download.png',
+    image: '/2024-nniit.png?v=2',
   },
   {
-    title: 'Admin Member',
-    company: 'TFL (THE FIRST LAB)',
-    period: 'Mar 2023 - May 2024',
-    location: 'Science and Technology',
-    logo: 'https://media.licdn.com/dms/image/v2/C4E03AQH8uXtk57Ir-A/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1610612330748?e=1740614400&v=beta&t=qkYa8Re1Gwza3F2QCf2TXUVbzaSFY9rYbpSrqU7VcIE',
-    color: '#10B981',
+    year: 'Jan 2025 - May 2025',
+    role: 'Software Developer',
+    company: 'TalentTrise Technokrate',
+    location: 'Nagpur, Maharashtra',
+    description: 'Developed and maintained cross-platform mobile applications using React Native for live client projects.',
     achievements: [
-      'Organized technical workshops & events',
-      'Managed student coordination',
-      'Promoted tech activities college-wide',
-      'Runner-up in BDCE Hackathon 2K22'
+      'Worked simultaneously on various live React Native and React.js projects, maintaining high code quality',
+      'Led and mentored interns by assigning tasks, reviewing code, and providing technical guidance',
+      'Managed client communications on the technical side, gathering requirements and providing updates',
+      'Collaborated closely with the Figma design team to enhance and implement intuitive UI/UX',
+      'Successfully optimized performance of ongoing projects, achieving up to 80% improvement in load time',
+      'Practiced agile methodologies, participated in standups, sprint planning, and code reviews',
     ],
-    skills: ['Event Management', 'Leadership', 'Technical Workshop', 'Team Coordination']
-  }
-]
-
-const TimelineDot = ({ color }: { color: string }) => (
-  <motion.div
-    initial={{ scale: 0 }}
-    animate={{ scale: 1 }}
-    className="relative"
-  >
-    <div 
-      className="absolute -inset-2 rounded-full opacity-20 blur-md"
-      style={{ backgroundColor: color }}
-    />
-    <CircleDot 
-      className="w-6 h-6 relative z-10"
-      style={{ color: color }}
-    />
-  </motion.div>
-)
-
-function ExperienceCard({ experience }: { experience: typeof experiences[0] }) {
-  const [isHovered, setIsHovered] = useState(false)
-  const cardRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: cardRef,
-    offset: ["start end", "end start"]
-  })
-
-  const y = useTransform(scrollYProgress, [0, 1], [100, -100])
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.9, 1], [0, 1, 1, 0])
-  const scale = useTransform(scrollYProgress, [0, 0.2, 0.9, 1], [0.8, 1, 1, 0.8])
-
-  return (
-    <motion.div
-      ref={cardRef}
-      style={{ y, opacity, scale }}
-      className="relative pl-16"
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-    >
-      {/* Timeline Dot */}
-      <div className="absolute left-6 top-8 -translate-x-1/2">
-        <TimelineDot color={experience.color} />
-      </div>
-
-      <motion.div
-        initial={{ rotateX: 0 }}
-        whileHover={{ 
-          rotateX: 5,
-          rotateY: 3,
-          translateY: -5,
-          transition: { duration: 0.2 }
-        }}
-        className="relative group"
-      >
-        <div 
-          className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-          style={{ 
-            background: `radial-gradient(600px circle at var(--mouse-x, 0) var(--mouse-y, 0), ${experience.color}10, transparent 40%)` 
-          }}
-        />
-        
-        <div className="relative grid md:grid-cols-[1fr_250px] gap-8 p-8 rounded-2xl border border-primary/10 bg-black/40 backdrop-blur-sm hover:border-primary/20 transition-all duration-300">
-          {/* Content */}
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <div className="flex items-center gap-3">
-                <Briefcase className="w-5 h-5" style={{ color: experience.color }} />
-                <h3 className="text-xl font-semibold" style={{ color: experience.color }}>
-                  {experience.title}
-                </h3>
-              </div>
-              
-              <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
-                <div className="flex items-center gap-2">
-                  <Building2 className="w-4 h-4" />
-                  <span>{experience.company}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4" />
-                  <span>{experience.period}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4" />
-                  <span>{experience.location}</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <ul className="space-y-2">
-                {experience.achievements.map((achievement, i) => (
-                  <motion.li 
-                    key={i}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.1 }}
-                    className="flex items-start gap-2 text-sm text-muted-foreground"
-                  >
-                    <ArrowRight className="w-4 h-4 mt-1" style={{ color: experience.color }} />
-                    <span>{achievement}</span>
-                  </motion.li>
-                ))}
-              </ul>
-
-              <div className="flex flex-wrap gap-2">
-                {experience.skills.map((skill, i) => (
-                  <motion.span
-                    key={i}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: i * 0.1 }}
-                    className="px-3 py-1 text-xs rounded-full"
-                    style={{ 
-                      backgroundColor: `${experience.color}20`,
-                      color: experience.color,
-                      border: `1px solid ${experience.color}40`
-                    }}
-                  >
-                    {skill}
-                  </motion.span>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Logo */}
-          <div className="relative">
-            <div 
-              className="absolute inset-0 rounded-xl opacity-20 blur-2xl transition-opacity duration-300"
-              style={{ 
-                background: experience.color,
-                opacity: isHovered ? 0.3 : 0.1
-              }} 
-            />
-            <div className="relative h-full flex items-center justify-center rounded-xl border border-primary/10 bg-black/40 backdrop-blur-sm overflow-hidden group-hover:border-primary/20 transition-colors">
-              <Image
-                src={experience.logo}
-                alt={experience.company}
-                width={200}
-                height={200}
-                className="w-32 h-32 object-contain p-4 transition-transform duration-300 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-            </div>
-          </div>
-        </div>
-      </motion.div>
-    </motion.div>
-  )
-}
-
-const FloatingParticles = () => (
-  <div className="absolute inset-0 overflow-hidden pointer-events-none">
-    {[...Array(30)].map((_, i) => (
-      <motion.div
-        key={i}
-        className="absolute w-1 h-1 bg-primary/30 rounded-full"
-        initial={{
-          x: Math.random() * 100 + "%",
-          y: Math.random() * 100 + "%",
-          scale: Math.random() * 0.5 + 0.5,
-          opacity: Math.random() * 0.3 + 0.2
-        }}
-        animate={{
-          y: ["-10%", "110%"],
-          opacity: [0, 1, 0]
-        }}
-        transition={{
-          duration: Math.random() * 10 + 10,
-          repeat: Infinity,
-          ease: "linear",
-          delay: Math.random() * 10
-        }}
-      />
-    ))}
-  </div>
-)
+    technologies: ['React Native', 'React.js', 'Figma', 'Agile', 'Mobile Development'],
+    image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80',
+  },
+  {
+    year: 'Jan 2024 - Dec 2024',
+    role: 'Frontend Developer',
+    company: 'Avalanche Hi-Tech Enterprise',
+    location: 'Nagpur, Maharashtra',
+    description: 'Built reusable UI components in React.js, aligned with design systems and accessibility best practices.',
+    achievements: [
+      'Worked directly with UX designers and backend engineers to ensure functional delivery',
+      'Used agile methods (Scrum, sprints) to deliver features on schedule and meet team goals',
+      'Implemented REST API integrations and optimized for performance and scalability',
+      'Wrote clean, well-documented code and maintained version control workflows',
+      'Contributed to team discussions and retrospectives to continuously improve project quality',
+      'Actively learned new tools and frameworks to support growing team requirements',
+    ],
+    technologies: ['React.js', 'REST API', 'Scrum', 'Git', 'UI Components'],
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80',
+  },
+  {
+    year: '2023',
+    role: 'Admin Member',
+    company: 'TFL (Technical Forum)',
+    location: 'College',
+    description: 'Organized technical workshops, events, and managed student coordination.',
+    achievements: [
+      'Organized 15+ technical workshops and coding events',
+      'Managed coordination for 200+ student participants',
+      'Promoted tech activities and skill development programs',
+      'Led team of technical coordinators',
+    ],
+    technologies: ['Leadership', 'Event Management', 'Communication'],
+    image: 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=800&q=80',
+  },
+  {
+    year: '2022',
+    role: 'Web Development Journey',
+    company: 'Self-Learning & Projects',
+    description: 'Started my journey in web development, building foundational skills and projects.',
+    achievements: [
+      'Learned HTML, CSS, JavaScript fundamentals',
+      'Built first portfolio projects and personal website',
+      'Explored React.js and modern web technologies',
+      'Runner-up at BDCE Hackathon 2K22',
+    ],
+    technologies: ['HTML', 'CSS', 'JavaScript', 'React.js', 'Git'],
+    image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&q=80',
+  },
+];
 
 export function ExperienceSection() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  })
+  const sectionRef = useRef<HTMLElement>(null);
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const [showResume, setShowResume] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
 
-  // Mouse move effect for cards
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const cards = document.querySelectorAll('.group')
-      cards.forEach(card => {
-        const rect = card.getBoundingClientRect()
-        const x = e.clientX - rect.left
-        const y = e.clientY - rect.top
-        ;(card as HTMLElement).style.setProperty('--mouse-x', `${x}px`)
-        ;(card as HTMLElement).style.setProperty('--mouse-y', `${y}px`)
-      })
+  const openResumeModal = () => {
+    setShowResume(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeResumeModal = () => {
+    if (modalRef.current) {
+      gsap.to(modalRef.current, {
+        opacity: 0,
+        scale: 0.9,
+        duration: 0.3,
+        ease: 'power2.in',
+        onComplete: () => {
+          setShowResume(false);
+          document.body.style.overflow = 'auto';
+        },
+      });
     }
+  };
 
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [])
+  useEffect(() => {
+    const cards = cardsRef.current;
+
+    cards.forEach((card, index) => {
+      if (!card) return;
+
+      gsap.fromTo(
+        card,
+        {
+          opacity: 0,
+          y: 100,
+          scale: 0.95,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 85%',
+            end: 'top 20%',
+            toggleActions: 'play none none reverse',
+          },
+        }
+      );
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => {
+        if (trigger.vars.trigger && cards.includes(trigger.vars.trigger as HTMLDivElement)) {
+          trigger.kill();
+        }
+      });
+    };
+  }, []);
+
+  // Animate modal entrance
+  useEffect(() => {
+    if (showResume && modalRef.current) {
+      gsap.fromTo(
+        modalRef.current,
+        { opacity: 0, scale: 0.8 },
+        { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(1.7)' }
+      );
+    }
+  }, [showResume]);
 
   return (
-    <section 
-      ref={containerRef}
-      id="experience" 
-      className="relative py-20 overflow-hidden"
+    <section
+      ref={sectionRef}
+      className="w-full relative py-20 bg-black"
+      id="experience"
     >
-      {/* Floating Particles */}
-      <FloatingParticles />
-
-      {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black" />
-      <motion.div 
-        className="absolute inset-0 opacity-30"
-        style={{
-          background: "radial-gradient(circle at 50% 50%, var(--primary) 0%, transparent 70%)",
-          scale: scrollYProgress
-        }}
-      />
-
-      <div className="relative container mx-auto px-4">
-        <div className="max-w-2xl mx-auto text-center mb-12 md:mb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 text-primary font-medium"
-          >
-            <ArrowRight className="w-5 h-5" />
-            <span className="text-lg">My Experience</span>
-          </motion.div>
-          <h2 className="text-3xl md:text-4xl font-semibold">My Professional Journey</h2>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <p className="uppercase tracking-widest text-gray-400 text-sm mb-3">
+            MY JOURNEY
+          </p>
+          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+            Experience Timeline
+          </h2>
+          <p className="mt-4 text-xl text-gray-300 max-w-3xl mx-auto">
+            A chronicle of my professional growth and technical achievements
+          </p>
         </div>
 
-        <div className="space-y-24">
-          {experiences.map((experience, i) => (
-            <ExperienceCard key={i} experience={experience} />
-          ))}
+        {/* Timeline */}
+        <div className="relative">
+          {/* Vertical Line */}
+          <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-cyan-500 via-blue-500 to-purple-600" />
+
+          {/* Experience Cards */}
+          <div className="space-y-12">
+            {EXPERIENCES.map((exp, index) => (
+              <div
+                key={exp.year}
+                ref={(el) => { cardsRef.current[index] = el; }}
+                className={`flex flex-col md:flex-row items-center gap-8 ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+                  }`}
+              >
+                {/* Content Card */}
+                <div className="w-full md:w-5/12">
+                  <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-all duration-300 shadow-xl hover:shadow-cyan-500/20">
+                    {/* Year Badge */}
+                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full text-white font-bold text-sm mb-4">
+                      <Calendar className="w-4 h-4" />
+                      {exp.year}
+                    </div>
+
+                    {/* Company Logo */}
+                    {exp.logo && (
+                      <div className="mb-4">
+                        <Image
+                          src={exp.logo}
+                          alt={exp.company}
+                          width={80}
+                          height={32}
+                          className="h-8 w-auto object-contain"
+                        />
+                      </div>
+                    )}
+
+                    {/* Role & Company */}
+                    <h3 className="text-2xl font-bold text-white mb-2">
+                      {exp.role}
+                    </h3>
+                    <div className="flex items-center gap-4 text-gray-400 mb-3">
+                      <div className="flex items-center gap-2">
+                        <Briefcase className="w-4 h-4" />
+                        <span className="text-sm">{exp.company}</span>
+                      </div>
+                      {exp.location && (
+                        <div className="flex items-center gap-2">
+                          <MapPin className="w-4 h-4" />
+                          <span className="text-sm">{exp.location}</span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Description */}
+                    <p className="text-gray-300 mb-4">{exp.description}</p>
+
+                    {/* Achievements */}
+                    <div className="mb-4">
+                      <h4 className="text-sm font-semibold text-cyan-400 mb-2">
+                        Key Achievements:
+                      </h4>
+                      <ul className="space-y-2">
+                        {exp.achievements.map((achievement, i) => (
+                          <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
+                            <span className="text-cyan-400 mt-1">•</span>
+                            <span>{achievement}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Technologies */}
+                    <div className="flex flex-wrap gap-2">
+                      {exp.technologies.map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-3 py-1 bg-gray-800/50 border border-gray-600 rounded-full text-xs text-gray-300 hover:border-cyan-500/50 transition-colors"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Center Dot */}
+                <div className="hidden md:flex w-2/12 justify-center">
+                  <div className="relative">
+                    <div className="w-6 h-6 rounded-full bg-gradient-to-r from-cyan-400 to-blue-600 border-4 border-black shadow-lg shadow-cyan-500/50" />
+                    <div className="absolute inset-0 w-6 h-6 rounded-full bg-cyan-400 animate-ping opacity-20" />
+                  </div>
+                </div>
+
+                {/* Image Card */}
+                <div className="w-full md:w-5/12">
+                  {exp.image && (
+                    <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-gray-700 hover:border-cyan-500/50 transition-all duration-300 group">
+                      <div className="relative h-64 md:h-80">
+                        <Image
+                          src={exp.image}
+                          alt={exp.role}
+                          fill
+                          className="object-cover group-hover:scale-110 transition-transform duration-500"
+                          sizes="(max-width: 768px) 100vw, 40vw"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                        <div className="absolute bottom-0 left-0 right-0 p-6">
+                          <p className="text-white font-semibold text-lg">
+                            {exp.company}
+                          </p>
+                          <p className="text-gray-300 text-sm">{exp.year}</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Bottom CTA */}
+        <div className="mt-20 text-center">
+          <button
+            onClick={openResumeModal}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full text-white font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 cursor-pointer hover:scale-105 active:scale-95"
+          >
+            <FileText className="w-5 h-5" />
+            <span>View Full Resume</span>
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M14 5l7 7m0 0l-7 7m7-7H3"
+              />
+            </svg>
+          </button>
         </div>
       </div>
+
+      {/* Animated Resume Modal */}
+      {showResume && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/80 backdrop-blur-md"
+            onClick={closeResumeModal}
+          />
+
+          {/* Modal Content */}
+          <div
+            ref={modalRef}
+            className="relative w-full max-w-5xl h-[90vh] bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-3xl shadow-2xl border border-cyan-500/30 overflow-hidden"
+          >
+            {/* Modal Header */}
+            <div className="absolute top-0 left-0 right-0 z-10 bg-gradient-to-b from-gray-900 to-transparent p-6 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="p-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl">
+                  <FileText className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-white">Resume</h3>
+                  <p className="text-sm text-gray-400">Vinay Ambatkar - Full Stack Developer</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                {/* Download Button */}
+                <a
+                  href="/Vinay-SDE.pdf"
+                  download="Vinay_Ambatkar_Resume.pdf"
+                  className="p-3 bg-gray-800 hover:bg-cyan-600 rounded-xl transition-all duration-300 group"
+                  title="Download Resume"
+                >
+                  <Download className="w-5 h-5 text-gray-300 group-hover:text-white" />
+                </a>
+
+                {/* Close Button */}
+                <button
+                  onClick={closeResumeModal}
+                  className="p-3 bg-gray-800 hover:bg-red-600 rounded-xl transition-all duration-300 group"
+                >
+                  <X className="w-5 h-5 text-gray-300 group-hover:text-white" />
+                </button>
+              </div>
+            </div>
+
+            {/* PDF Viewer */}
+            <div className="w-full h-full pt-20">
+              <iframe
+                src="/Vinay-SDE.pdf"
+                className="w-full h-full border-0"
+                title="Resume PDF Viewer"
+              />
+            </div>
+
+            {/* Decorative Elements */}
+            <div className="absolute top-0 left-0 w-40 h-40 bg-cyan-500/10 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 right-0 w-60 h-60 bg-blue-600/10 rounded-full blur-3xl" />
+          </div>
+        </div>
+      )}
     </section>
-  )
+  );
 }
+
+export default ExperienceSection;
